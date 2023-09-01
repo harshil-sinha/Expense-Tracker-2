@@ -1,13 +1,13 @@
 
 import React,{Suspense} from "react";
 
-import { useContext,} from "react";
+// import { useContext,} from "react";
 import { useNavigate } from "react-router-dom";
 import { Route,Redirect,Routes} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "./AUth/AuthContext";
+// import { authActions } from "./AUth/AuthContext";
 
-import { Navbar, NavLink,Nav,Container } from "react-bootstrap";
+// import { Navbar, NavLink,Nav,Container } from "react-bootstrap";
 
 
 const SignUp=React.lazy(()=>import("./Singup/Signup"));
@@ -16,9 +16,15 @@ const Profile=React.lazy(()=>import("./Expenses/Profile"));
 const Forgot=React.lazy(()=>import("./Singup/Forgot"));
 const ExpenseForm=React.lazy(()=>import("./ExpensesForm/ExpensesInput"))
 
+const LoadingFallback = () => (
+  <div className="d-flex justify-content-center" style={{marginTop:"280px"}}>
+  <div className="spinner-border" role="status">
+  </div><br />
+    {/* <p className="sr-only">Loading...</p> */}
+</div>
+);
 
-
-function App() {
+const App = () => {
   
   const history=useNavigate();
   const dispatch=useDispatch();
@@ -29,7 +35,7 @@ function App() {
  
   return ( 
     <>
-     <Suspense fallback={<h1 style={{textAlign:"Center",fontWeight:"bold",margin:"30%"}}>Loading... 🚗 </h1>} >
+     <Suspense fallback={<LoadingFallback/>}>
     
     <Routes>
 
