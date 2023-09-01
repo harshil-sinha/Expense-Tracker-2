@@ -1,10 +1,10 @@
 import { useState,useEffect, useRef } from 'react';
 import axios from 'axios';
-
+// import ListGroup from 'react-bootstrap/ListGroup';
 import{Row,Col,Form,Card,Button,Container} from 'react-bootstrap'
 import { expenseActions,themeAction } from '../AUth/AuthContext';
 import { useDispatch,useSelector } from 'react-redux';
-
+import Table from 'react-bootstrap/Table';
 import { saveAs } from "file-saver";
 
 
@@ -138,16 +138,16 @@ async function onExpenseDeleteClickHandler(id){
 
 return (
     <div style={{backgroundColor: currentTheme.darkMode? "grey" : null}}>
-     <Row style={{margin:"2% 0  0  3%"}}>
+     <Row style={{margin:"2% 0  0  3%"}} className='justify-content-center'>
             <Col md={6}>
                 <Card>
-                    <Card.Header className="p-1" style={{backgroundColor:"darkGrey",textAlign:"center"}}>
+                    <Card.Header className="p-1" style={{backgroundColor:"#c6e3e6",textAlign:"center"}}>
                     <h4 >Expense-Form</h4>
                     </Card.Header>
 
-                    <Card.Body className="p-2" style={{backgroundColor:"#f7f5f0"}}>
+                    <Card.Body className="p-2" style={{backgroundColor:"#91dae8"}}>
                     <Form>
-    <Form.Group   className="mb-1">
+               <Form.Group   className="mb-1">
                             <Form.Control size="lg" type="number" placeholder="amount" name="amount" ref={ExpenseAmount}  ></Form.Control>
                             </Form.Group>
                          <Form.Group className="mb-2">
@@ -168,7 +168,7 @@ return (
                         </Form.Group>
                  <Form.Group className="mb-1">
                         <Container  style={{textAlign:"center"}}>
-                         <Button  size='lg' variant="success"  type="submit"  style={{borderRadius:"40px"}} onClick={SubmitHandler}>Submit</Button>
+                         <Button  size='lg' variant="info"  type="submit"  style={{borderRadius:"40px"}} onClick={SubmitHandler}>Submit</Button>
                           </Container>
 
                         </Form.Group>
@@ -182,17 +182,38 @@ return (
         <div id='div'  style={{marginTop:"30px",backgroundColor: currentTheme.darkMode? "grey" : null}}>  
 
        { Expensedata.expenses!==null &&  Object.keys(Expensedata.expenses).map((key)=>{ 
-        return  <div id={key} style={{marginTop:"15px"} }><li  key={key}>
+        return  <div id={key} style={{marginTop:"15px"}} className='text-center'>
+          {/* <li  key={key}>
          <span style={{margin:"1px 3px 1px 1px",}}>{Expensedata.expenses[key].amount}</span>
             <span style={{margin:"1px 3px 1px 10px"}}>{Expensedata.expenses[key].disc}</span> 
             <span style={{margin:"1px 10px 1px 10px"}}>{Expensedata.expenses[key].cate}</span>
              <span style={{margin:"6px 15px 1px 1px"}}> <Button size='sm' variant='success' onClick={()=>{onEditExpenseClickHandler(key)}}>Edit</Button></span>
-            <span style={{margin:"6px 10px 1px 1px"}}><Button size='sm' variant='danger' onClick={()=>{onExpenseDeleteClickHandler(key)}}>Delete</Button> </span>
+            <span style={{margin:"6px 10px 1px 1px"}}><Button size='sm' variant='danger' onClick={()=>{onExpenseDeleteClickHandler(key)}}>Delete</Button> </span> */}
             {/* <span>{key}</span>
             {console.log(key)} */}
 
-             </li>
+             {/* </li> */}
 
+            <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Amount</th>
+                <th>Discription</th>
+                <th>Category</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody key={key}>
+            <tr>
+              <td>₹{Expensedata.expenses[key].amount}</td>
+              <td>{Expensedata.expenses[key].amount}</td>
+              <td>{Expensedata.expenses[key].cate}</td>
+              <td><Button size='sm' variant='success' onClick={()=>{onEditExpenseClickHandler(key)}}>Edit</Button></td>
+              <td><Button size='sm' variant='danger' onClick={()=>{onExpenseDeleteClickHandler(key)}}>Delete</Button> </td>
+            </tr>
+            </tbody>
+          </Table>
             </div>
     }) 
         } 
